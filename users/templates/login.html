@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block 'head' %}
-    <link rel="stylesheet" href="{% static 'users/css/users.css'%}">
+
+<link rel="stylesheet" href="{% static 'users/css/users.css' %}">
+
 {% endblock 'head' %}
 
 {% block 'body' %}
@@ -14,39 +15,34 @@
         <div class="col-md-10 d-flex justify-content-center bg-color-dark form-auth">
             <div class="container-form">
                 <h1 class="text-logo">START.SE</h1>
-                <h1>Cadastre-se</h1>
+                <h1>Logar</h1>
                 {% if messages %}
-                    {% for msg in messages %}
-                        <section class="alert {{msg.tags}}">
-                            {{ msg }}
+                    {% for message in messages %}
+                        <section class="alert {{message.tags}}">
+                            {{message}}
                         </section>
                     {% endfor %}
                 {% endif %}
                 <br>
-                <form action="{% url 'register' %}" METHOD="POST"> {% csrf_token %}
-                    <label>Username</label>
+                <form action="{% url 'login' %}" method="POST">{% csrf_token %}
+                    <label for="username">Username</label>
                     <input
+                            id="username"
                             type="text"
                             class="form-control input-pers"
                             name="username"
                             placeholder="Digite seu username">
                     <br>
-                    <label>Senha</label>
+                    <label for="password">Senha</label>
                     <input
+                            id="password"
                             type="password"
                             class="form-control input-pers"
                             name="senha"
                             placeholder="Digite sua senha">
-                    <br>
-                    <label>Confirmar senha</label>
-                    <input
-                            type="password"
-                            class="form-control input-pers"
-                            name="confirmar_senha"
-                            placeholder="Confirme sua senha">
                     <div class="centralizar">
-                        <input type="submit" class="btn btn-indigo" value="Cadastrar">
-                        <a href="{% url 'login' %}" class="texto">Já possuo uma conta</a>
+                        <input type="submit" class="btn btn-indigo" value="Logar">
+                        <a href="{% url 'register' %}" class="texto">Não possuo uma conta</a>
                     </div>
                 </form>
             </div>
@@ -57,4 +53,3 @@
 </div>
 
 {% endblock 'body' %}
-
