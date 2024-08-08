@@ -57,13 +57,17 @@
         <br>
 
         <div class="row">
-            {% for empresa in empresas %}
+            {% for company in companies %}
                 <div class="col-md">
                     <div class="card dark-color" style="width: 18rem; border: none;" >
-                        <img class="card-img-top dark-color" src="{{empresa.logo.url}}" alt="Card image cap">
+                        {% if company.logo %}
+                            <img class="card-img-top dark-color" src="{{company.logo.url}}" alt="Card image cap">
+                        {% else %}
+                            <img src="/media/logo/igm_1.webp" lass="card-img-top dark-color" alt="Card image cap">
+                        {% endif %}
                         <div class="card-body dark-color">
-                        <h5 class="card-title">{{empresa.nome}}</h5>
-                        <p class="card-text">{{empresa.descricao}}</p>
+                        <h5 class="card-title">{{company.name}}</h5>
+                        <p class="card-text">{{company.description}}</p>
                         <a href="#" class="btn btn-indigo">Acessar</a>
                         </div>
                     </div>

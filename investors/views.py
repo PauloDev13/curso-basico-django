@@ -31,3 +31,16 @@ def suggestion(request):
 
         companies = companies.filter(area__in=area)
 
+        selected_companies = []
+
+        for company in companies:
+            percentage = float(value) * 100 / float(company.valuation)
+
+            if percentage > 1:
+                selected_companies.append(company)
+
+        return render(request, 'suggestion.html', {
+            'areas': areas,
+            'companies': selected_companies,
+        })
+
