@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
+from django.utils.safestring import mark_safe
 from django.db import models
+from datetime import date
 
 
 class Empresas(models.Model):
@@ -56,3 +58,29 @@ class Empresas(models.Model):
 
     def __str__(self):
         return f'{self.user.username} | {self.name}'
+
+    @property
+    def status(self):
+        if date.today() > self.final_capture_date:
+            return mark_safe('<span class="badge text-bg-success">Capitação finalizada</span>')
+        return mark_safe('<span class="badge text-bg-primary">Em Capitação</span>')
+
+    @property
+    def valuation(self):
+        return f'{(100 * self.value) / self.percentual_equity: .2f}'
+
+
+class Documentos(models.Model):
+    company = models.ForeignKey(Empresas, on_delete=models.DO_NOTHING)
+    title = models.CharField(max_length=50)
+    file = models.FileField(upload_to='documentos')
+    def __str__(self):
+        return f'{self.title}'
+
+class Metricas(models.Model):
+    company = models.ForeignKey(Empresas, on_delete=models.DO_NOTHING)
+    title = models.CharField(max_length=30)
+    value = models.FloatField()
+
+    def __str__(self):
+        return self.title

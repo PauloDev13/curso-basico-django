@@ -80,7 +80,7 @@ def login(request):
 
         if user is not None:
             auth.login(request, user)
-            return redirect('/company/add_company')
+            return redirect('/companies/add_company')
 
         messages.add_message(
             request,
